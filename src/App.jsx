@@ -1,8 +1,19 @@
 import { useState, useEffect } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getApiConfiguration } from "./store/homeSlice";
 
 import { fetchDataFromApi } from "./utils/api";
+
+import {
+  Header,
+  Footer,
+  Home,
+  Details,
+  SearchResult,
+  PageNotFound,
+  Explore,
+} from "./components";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,9 +31,15 @@ function App() {
   };
 
   return (
-    <>
-      <div className="">{url?.total_pages}</div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/:mediaType/:id" element={<Details />} />
+        <Route path="/search/:query" element={<SearchResult />} />
+        <Route path="/explore/:mediaType" element={<Explore />} />
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
