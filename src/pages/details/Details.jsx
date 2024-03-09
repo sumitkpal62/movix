@@ -4,6 +4,9 @@ import { useParams } from "react-router-dom";
 import DetailsBanner from "./detailsBanner/DetailsBanner";
 import { useSelector } from "react-redux";
 import Cast from "./cast/Cast";
+import VideosSection from "./videosSection/VideosSection";
+import Recommendation from "./carousels/Recommendation";
+import Similar from "./carousels/Similar";
 
 const Details = () => {
   const { mediaType, id } = useParams();
@@ -12,10 +15,15 @@ const Details = () => {
     `/${mediaType}/${id}/credits`
   );
 
+  console.log(credits);
+
   return (
     <div>
       <DetailsBanner video={data?.results?.[0]} crew={credits?.crew} />
       <Cast data={credits?.cast} loading={creditsLoading} />
+      <VideosSection data={data} loading={loading} />
+      <Similar mediaType={mediaType} id={id} />
+      <Recommendation mediaType={mediaType} id={id} />
     </div>
   );
 };
